@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -39,8 +40,13 @@ public class ToDoJdbcTemplate implements ToDoDao {
 
 	
 	public void postToDoList(ToDoList todo) {
-		String sql = "insert into ToDo values("+todo.getId()+",'"+todo.getName()+"','"+todo.getDate()+"','"+todo.getPriority()+"')";
-		jdbcTemplateObject.update(sql);		
+		String sql = "insert into ToDo values(?,?,?,?)";
+		int id = todo.getId();
+		String name = todo.getName();
+		String date = todo.getDate();
+		String priority = todo.getPriority();		
+		int[] types = new int[] { Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };		   
+		jdbcTemplateObject.update(sql, new Object[]{id,name,date,priority}, types);		
 	}
 
 	@Override
@@ -53,8 +59,13 @@ public class ToDoJdbcTemplate implements ToDoDao {
 
 	@Override
 	public void putToDoList(ToDoList todo, int id) {
-		String sql = "update ToDo set id = '"+todo.getId()+"', name = '"+todo.getName()+"', duedate = '"+todo.getDate()+"',priority='"+todo.getPriority()+"' where id = ?";
-		jdbcTemplateObject.update(sql,new Object[]{id});
+		String sql = "update ToDo set id = ?, name = ?, duedate = ?, priority = ? where id = ?";
+		int toDoId = todo.getId();
+		String name = todo.getName();
+		String date = todo.getDate();
+		String priority = todo.getPriority();
+		int[] types = new int[] { Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER };		 
+		jdbcTemplateObject.update(sql,new Object[]{toDoId,name,date,priority,id});
 		
 	}
 
