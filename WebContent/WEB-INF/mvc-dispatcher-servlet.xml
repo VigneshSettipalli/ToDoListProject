@@ -11,8 +11,8 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<mvc:annotation-driven />
-	<context:component-scan base-package="com.controller"></context:component-scan>
-	<context:component-scan base-package="com.exception"></context:component-scan>
+	<context:component-scan base-package="com"></context:component-scan>
+	
 
 
 	<bean
@@ -21,8 +21,7 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
-	<bean id="toDoService" class="com.service.ToDoServiceImpl"></bean>
-
+	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
@@ -36,6 +35,12 @@
 		<property name="jdbcTemplateObject" ref="dataSource"></property>
 	</bean>
 
+	<bean class="com.swagger.MetaData" id="metaData" />
+	<bean class="com.swagger.Data" id="data" />
+	<bean class="com.swagger.ErrorDetails" id="error" />
+	<bean class="com.swagger.Response" id="response" />
+	<bean id="toDoService" class="com.service.ToDoServiceImpl"></bean>
+	
 
 
 </beans>

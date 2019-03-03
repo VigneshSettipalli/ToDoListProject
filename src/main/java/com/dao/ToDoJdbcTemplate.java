@@ -20,7 +20,6 @@ public class ToDoJdbcTemplate implements ToDoDao {
 	public void setDataSource(DataSource dataSource)
 	{
 		this.dataSource = dataSource;
-		//this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 	
 	public void setJdbcTemplateObject(DataSource dataSource) {
